@@ -15,7 +15,7 @@ export const routes = [
     routes: [
       {
         path: "/flow",
-        component: loadable(() => import("../modules/FlowDemo/FlowDemo")),
+        component: loadable(() => import("../modules/FlowChart/FlowChart")),
       },
       {
         path: "/gretting",

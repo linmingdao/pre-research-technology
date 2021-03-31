@@ -24,14 +24,14 @@ const Navigation: React.FC = () => {
         title="预研模块"
       >
         <Menu.Item key="/flow" icon={<HddOutlined />}>
-          flow chart
+          流程图
         </Menu.Item>
         <Menu.Item key="/" icon={<TableOutlined />}>
-          welcome
+          欢迎页
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key="/gretting" icon={<BarChartOutlined />}>
-        welcome
+        欢迎页
       </Menu.Item>
     </Menu>
   );
