@@ -19,7 +19,7 @@ const onElementClick = (event: any, element: any) =>
   console.log("click", element);
 
 const initBgColor = "#c3c3c3";
-const connectionLineStyle = { strokeWidth: "10px", stroke: "#fff" };
+const connectionLineStyle = { strokeWidth: "1px", stroke: "#fff" };
 const snapGrid: [number, number] = [10, 10];
 const nodeTypes = {
   startNode: StartNode,
