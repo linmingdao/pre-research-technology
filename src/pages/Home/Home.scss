@@ -1,0 +1,24 @@
+.home {
+  height: 100%;
+
+  .nav {
+    height: 63px;
+    line-height: 60px;
+    padding: 0 10px;
+  }
+
+  .content-box {
+    height: calc(100% - 63px);
+    padding: 10px;
+    overflow: hidden;
+
+    .content {
+      height: 100%;
+      overflow: auto;
+      padding: 6px;
+      position: relative;
+      box-sizing: border-box;
+      background-color: #fff;
+    }
+  }
+}
