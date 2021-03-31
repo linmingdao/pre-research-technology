@@ -7,6 +7,10 @@ import ReactFlow, {
   Controls,
   Node,
 } from "react-flow-renderer";
+import StartNode from "./widgets/StartNode";
+import EndNode from "./widgets/EndNode";
+import SquareNode from "./widgets/SquareNode";
+import DiamondNode from "./widgets/DiamondNode";
 import ColorSelectorNode from "./widgets/ColorSelectorNode";
 
 const onNodeDragStop = (event: any, node: any) =>
@@ -15,10 +19,13 @@ const onElementClick = (event: any, element: any) =>
   console.log("click", element);
 
 const initBgColor = "#c3c3c3";
-
-const connectionLineStyle = { stroke: "#fff" };
-const snapGrid: [number, number] = [20, 20];
+const connectionLineStyle = { strokeWidth: "10px", stroke: "#fff" };
+const snapGrid: [number, number] = [10, 10];
 const nodeTypes = {
+  startNode: StartNode,
+  endNode: EndNode,
+  squareNode: SquareNode,
+  diamondNode: DiamondNode,
   selectorNode: ColorSelectorNode,
 };
 
@@ -52,56 +59,110 @@ const CustomNodeFlow = () => {
 
     setElements([
       {
-        id: "1",
-        type: "input",
-        data: { label: "An input node" },
-        position: { x: 0, y: 50 },
-        sourcePosition: "right",
-      },
-      {
-        id: "2",
+        id: "0",
         type: "selectorNode",
         data: { onChange: onChange, color: initBgColor },
         style: { border: "1px solid #777", padding: 10 },
-        position: { x: 300, y: 50 },
+        position: { x: 500, y: 0 },
+      },
+      {
+        id: "1",
+        type: "startNode",
+        data: { onChange: onChange, color: "red", label: "告警" },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 200, y: 0 },
+      },
+      {
+        id: "2",
+        type: "squareNode",
+        data: {
+          onChange: onChange,
+          color: "green",
+          label: "查看GC线程CPU",
+        },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 200, y: 70 },
       },
       {
         id: "3",
-        type: "output",
-        data: { label: "Output A" },
-        position: { x: 650, y: 25 },
-        targetPosition: "left",
+        type: "diamondNode",
+        data: { onChange: onChange, color: "blue", label: ">60%" },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 200, y: 140 },
       },
       {
         id: "4",
-        type: "output",
-        data: { label: "Output B" },
-        position: { x: 650, y: 100 },
-        targetPosition: "left",
+        type: "diamondNode",
+        data: { onChange: onChange, color: "blue", label: "<=60%" },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 300, y: 140 },
       },
-
       {
-        id: "e1-2",
+        id: "5",
+        type: "endNode",
+        data: { onChange: onChange, color: "red", label: "未知" },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 200, y: 210 },
+      },
+      {
+        id: "6",
+        type: "squareNode",
+        data: {
+          onChange: onChange,
+          color: "blue",
+          label: "查看业务线程CPU",
+        },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 300, y: 210 },
+      },
+      {
+        id: "7",
+        type: "endNode",
+        data: { onChange: onChange, color: "red", label: "END" },
+        style: { border: "1px solid #777", padding: 10 },
+        position: { x: 300, y: 280 },
+      },
+      {
+        id: "e1",
         source: "1",
         target: "2",
         animated: true,
         style: { stroke: "#fff" },
       },
       {
-        id: "e2a-3",
+        id: "e2",
         source: "2",
         target: "3",
-        sourceHandle: "a",
         animated: true,
         style: { stroke: "#fff" },
       },
       {
-        id: "e2b-4",
+        id: "e3",
         source: "2",
         target: "4",
-        sourceHandle: "b",
         animated: true,
         style: { stroke: "#fff" },
+      },
+      {
+        id: "e4",
+        source: "3",
+        target: "5",
+        animated: false,
+        style: { stroke: "#555", strokeWidth: "5px" },
+      },
+      {
+        id: "e5",
+        source: "4",
+        target: "6",
+        animated: true,
+        style: { stroke: "#fff" },
+      },
+      {
+        id: "e6",
+        source: "6",
+        target: "7",
+        animated: false,
+        style: { stroke: "#000", strokeWidth: "5px" },
       },
     ]);
   }, []);
@@ -117,6 +178,7 @@ const CustomNodeFlow = () => {
       setElements((els) => removeElements(elementsToRemove, els)),
     []
   );
+
   const onConnect = useCallback(
     (params) =>
       setElements((els) =>
@@ -152,10 +214,16 @@ const CustomNodeFlow = () => {
     >
       <MiniMap
         nodeStrokeColor={(n: Node) => {
-          if (n.type === "input") return "#0041d0";
-          if (n.type === "selectorNode") return bgColor;
-          if (n.type === "output") return "#ff0072";
-          return "#0041d0";
+          switch (n.type) {
+            case "input":
+              return "#0041d0";
+            case "selectorNode":
+              return bgColor;
+            case "output":
+              return "#ff0072";
+            default:
+              return "#0041d0";
+          }
         }}
         nodeColor={(n) => {
           if (n.type === "selectorNode") return bgColor;
