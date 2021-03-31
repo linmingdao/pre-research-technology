@@ -109,7 +109,7 @@ const CustomNodeFlow = () => {
         type: "squareNode",
         data: {
           onChange: onChange,
-          color: "blue",
+          color: "green",
           label: "查看业务线程CPU",
         },
         style: { border: "1px solid #777", padding: 10 },
