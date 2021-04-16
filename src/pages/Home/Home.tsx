@@ -1,7 +1,8 @@
 import "./Home.scss";
-import React from "react";
+import React, { Suspense } from "react";
 import { Switch } from "react-router-dom";
 import { RouteWithSubRoutes } from "../../router/router";
+import Loading from "../../components/Loading/Loading";
 import Navigation from "../../components/Navigation/Navigation";
 
 interface HomePropsType {
@@ -14,11 +15,13 @@ const Home: React.FC<HomePropsType> = ({ routes }) => {
       <Navigation />
       <div className="content-box">
         <div className="content">
-          <Switch>
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
-            ))}
-          </Switch>
+          <Suspense fallback={Loading}>
+            <Switch>
+              {routes.map((route, i) => (
+                <RouteWithSubRoutes key={i} {...route} />
+              ))}
+            </Switch>
+          </Suspense>
         </div>
       </div>
     </div>

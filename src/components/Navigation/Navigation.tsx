@@ -21,13 +21,13 @@ const Navigation: React.FC = () => {
       <Menu.SubMenu
         key="preresearch"
         icon={<DatabaseOutlined />}
-        title="预研模块"
+        title="流程图"
       >
         <Menu.Item key="/flow" icon={<HddOutlined />}>
           流程图
         </Menu.Item>
-        <Menu.Item key="/" icon={<TableOutlined />}>
-          欢迎页
+        <Menu.Item key="/flow_editor" icon={<TableOutlined />}>
+          流程图编辑器
         </Menu.Item>
       </Menu.SubMenu>
       <Menu.Item key="/gretting" icon={<BarChartOutlined />}>
@@ -36,7 +36,5 @@ const Navigation: React.FC = () => {
     </Menu>
   );
 };
-
-Navigation.displayName = "Navigation";
 
 export default Navigation;

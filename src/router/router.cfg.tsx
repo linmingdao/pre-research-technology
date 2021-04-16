@@ -1,29 +1,33 @@
-import loadable from "@loadable/component";
+import { lazy } from "react";
 
 export const routes = [
   {
     path: "/error",
-    component: loadable(() => import("../pages/Error/Error")),
+    component: lazy(() => import("../pages/Error/Error")),
   },
   {
     path: "/404",
-    component: loadable(() => import("../pages/NotFound/NotFound")),
+    component: lazy(() => import("../pages/NotFound/NotFound")),
   },
   {
     path: "/",
-    component: loadable(() => import("../pages/Home/Home")),
+    component: lazy(() => import("../pages/Home/Home")),
     routes: [
       {
         path: "/flow",
-        component: loadable(() => import("../modules/FlowChart/FlowChart")),
+        component: lazy(() => import("../modules/FlowChart/FlowChart")),
+      },
+      {
+        path: "/flow_editor",
+        component: lazy(() => import("../modules/FlowChart/FlowChartEditor")),
       },
       {
         path: "/gretting",
-        component: loadable(() => import("../modules/Greeting/Greeting")),
+        component: lazy(() => import("../modules/Greeting/Greeting")),
       },
       {
         path: "/",
-        component: loadable(() => import("../modules/Greeting/Greeting")),
+        component: lazy(() => import("../modules/Greeting/Greeting")),
       },
     ],
   },
