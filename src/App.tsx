@@ -7,7 +7,7 @@ import Loading from "./components/Loading/Loading";
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <Switch>
           {routes.map((route, i) => (
             <RouteWithSubRoutes key={i} {...route} />

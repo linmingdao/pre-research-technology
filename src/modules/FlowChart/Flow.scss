@@ -1,0 +1,51 @@
+.react-flow__node {
+  padding: 0 !important;
+  border-width: 0 !important;
+
+  & .flow-diagram-node {
+    color: #fff;
+    padding: 4px;
+    font-size: 12px;
+    box-sizing: content-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #686868;
+  }
+
+  & .flow-diagram-node.flow-diagram-node_start,
+  & .flow-diagram-node.flow-diagram-node_end {
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 50%;
+    border-color: #f45858;
+    background-color: #f29191;
+  }
+
+  & .flow-diagram-node.flow-diagram-node_square {
+    min-width: 80px;
+    min-height: 40px;
+    border-radius: 5px;
+    border-color: #2abb70;
+    background-color: #4fe698;
+  }
+
+  & .flow-diagram-node.flow-diagram-node_diamond {
+    min-width: 40px;
+    min-height: 40px;
+    border-radius: 5px;
+    border-color: #38cdde;
+    background-color: #67edfc;
+  }
+}
+
+.react-flow__node.selected {
+  & .flow-diagram-node.flow-diagram-node_start,
+  & .flow-diagram-node.flow-diagram-node_end,
+  & .flow-diagram-node.flow-diagram-node_diamond,
+  & .flow-diagram-node.flow-diagram-node_square {
+    border-color: #c716b3;
+    border-style: dashed;
+    box-shadow: 0 2px 12px 0 rgba(199, 22, 179, 0.2);
+  }
+}

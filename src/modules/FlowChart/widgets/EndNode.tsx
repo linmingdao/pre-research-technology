@@ -7,11 +7,10 @@ const EndNode: React.FC<{ data: any }> = ({ data }) => {
       <Handle
         type="target"
         position={Position.Top}
-        style={{ background: "#555" }}
-        onConnect={(params) => console.log("handle onConnect", params)}
+        onConnect={(params) => console.log("handle end node onConnect", params)}
       />
-      <span style={{ backgroundColor: data.color, color: "#fff" }}>
-        <strong>{data.label}</strong>
+      <span className="flow-diagram-node flow-diagram-node_end">
+        {data.label}
       </span>
     </>
   );

@@ -15,7 +15,7 @@ const Home: React.FC<HomePropsType> = ({ routes }) => {
       <Navigation />
       <div className="content-box">
         <div className="content">
-          <Suspense fallback={Loading}>
+          <Suspense fallback={<Loading />}>
             <Switch>
               {routes.map((route, i) => (
                 <RouteWithSubRoutes key={i} {...route} />

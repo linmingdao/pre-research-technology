@@ -1,169 +1,71 @@
+import "./Flow.scss";
 import React, { useState, useEffect, useCallback } from "react";
 import ReactFlow, {
-  isEdge,
-  removeElements,
   addEdge,
-  MiniMap,
   Controls,
-  Node,
+  removeElements,
 } from "react-flow-renderer";
-import StartNode from "./widgets/StartNode";
-import EndNode from "./widgets/EndNode";
-import SquareNode from "./widgets/SquareNode";
-import DiamondNode from "./widgets/DiamondNode";
-import ColorSelectorNode from "./widgets/ColorSelectorNode";
+import { Button } from "antd";
+import nodeTypes from "./widgets/index";
 
-const onNodeDragStop = (event: any, node: any) =>
-  console.log("drag stop", node);
-const onElementClick = (event: any, element: any) =>
-  console.log("click", element);
-
-const initBgColor = "#c3c3c3";
-const connectionLineStyle = { strokeWidth: "1px", stroke: "#fff" };
+const strokeWidth = 2;
+const initBgColor = "#e6e6e6";
 const snapGrid: [number, number] = [10, 10];
-const nodeTypes = {
-  startNode: StartNode,
-  endNode: EndNode,
-  squareNode: SquareNode,
-  diamondNode: DiamondNode,
-  selectorNode: ColorSelectorNode,
-};
 
 const CustomNodeFlow = () => {
-  const [reactflowInstance, setReactflowInstance] = useState<any>(null);
   const [elements, setElements] = useState<any[]>([]);
-  const [bgColor, setBgColor] = useState(initBgColor);
+  const [reactflowInstance, setReactflowInstance] = useState<any>(null);
 
   useEffect(() => {
-    const onChange = (event: { target: { value: any } }) => {
-      setElements((els: any) =>
-        els.map((e: any) => {
-          if (isEdge(e) || e.id !== "2") {
-            return e;
-          }
-
-          const color = event.target.value;
-
-          setBgColor(color);
-
-          return {
-            ...e,
-            data: {
-              ...e.data,
-              color,
-            },
-          };
-        })
-      );
-    };
-
     setElements([
-      {
-        id: "0",
-        type: "selectorNode",
-        data: { onChange: onChange, color: initBgColor },
-        style: { border: "1px solid #777", padding: 10 },
-        position: { x: 500, y: 0 },
-      },
       {
         id: "1",
         type: "startNode",
-        data: { onChange: onChange, color: "red", label: "告警" },
-        style: { border: "1px solid #777", padding: 10 },
-        position: { x: 200, y: 0 },
+        data: { label: "告警" },
+        position: { x: 220, y: 0 },
       },
       {
         id: "2",
         type: "squareNode",
-        data: {
-          onChange: onChange,
-          color: "green",
-          label: "查看GC线程CPU",
-        },
-        style: { border: "1px solid #777", padding: 10 },
+        data: { label: "查看GC线程CPU" },
         position: { x: 200, y: 70 },
       },
       {
         id: "3",
         type: "diamondNode",
-        data: { onChange: onChange, color: "blue", label: ">60%" },
-        style: { border: "1px solid #777", padding: 10 },
+        data: { label: ">60%" },
         position: { x: 200, y: 140 },
       },
       {
         id: "4",
         type: "diamondNode",
-        data: { onChange: onChange, color: "blue", label: "<=60%" },
-        style: { border: "1px solid #777", padding: 10 },
+        data: { label: "<=60%" },
         position: { x: 300, y: 140 },
       },
       {
         id: "5",
         type: "endNode",
-        data: { onChange: onChange, color: "red", label: "未知" },
-        style: { border: "1px solid #777", padding: 10 },
+        data: { label: "未知" },
         position: { x: 200, y: 210 },
       },
       {
         id: "6",
         type: "squareNode",
-        data: {
-          onChange: onChange,
-          color: "green",
-          label: "查看业务线程CPU",
-        },
-        style: { border: "1px solid #777", padding: 10 },
+        data: { label: "查看业务线程CPU" },
         position: { x: 300, y: 210 },
       },
       {
         id: "7",
         type: "endNode",
-        data: { onChange: onChange, color: "red", label: "END" },
-        style: { border: "1px solid #777", padding: 10 },
-        position: { x: 300, y: 280 },
+        data: { label: "END" },
+        position: { x: 320, y: 280 },
       },
-      {
-        id: "e1",
-        source: "1",
-        target: "2",
-        animated: true,
-        style: { stroke: "#fff" },
-      },
-      {
-        id: "e2",
-        source: "2",
-        target: "3",
-        animated: true,
-        style: { stroke: "#fff" },
-      },
-      {
-        id: "e3",
-        source: "2",
-        target: "4",
-        animated: true,
-        style: { stroke: "#fff" },
-      },
-      {
-        id: "e4",
-        source: "3",
-        target: "5",
-        animated: false,
-        style: { stroke: "#555", strokeWidth: "5px" },
-      },
-      {
-        id: "e5",
-        source: "4",
-        target: "6",
-        animated: true,
-        style: { stroke: "#fff" },
-      },
-      {
-        id: "e6",
-        source: "6",
-        target: "7",
-        animated: false,
-        style: { stroke: "#000", strokeWidth: "5px" },
-      },
+      { id: "e1", source: "1", target: "2", style: { strokeWidth } },
+      { id: "e2", source: "2", target: "3", style: { strokeWidth } },
+      { id: "e3", source: "2", target: "4", style: { strokeWidth } },
+      { id: "e4", source: "3", target: "5", style: { strokeWidth } },
+      { id: "e5", source: "4", target: "6", style: { strokeWidth } },
+      { id: "e6", source: "6", target: "7", style: { strokeWidth } },
     ]);
   }, []);
 
@@ -173,6 +75,20 @@ const CustomNodeFlow = () => {
     }
   }, [reactflowInstance, elements.length]);
 
+  const onNodeDragStop = (event: any, node: any) =>
+    setElements((els) =>
+      els.map((item) => {
+        if (item.id === node.id) {
+          return node;
+        } else {
+          return item;
+        }
+      })
+    );
+
+  const onElementClick = (event: any, element: any) =>
+    console.log("click", element);
+
   const onElementsRemove = useCallback(
     (elementsToRemove) =>
       setElements((els) => removeElements(elementsToRemove, els)),
@@ -181,9 +97,7 @@ const CustomNodeFlow = () => {
 
   const onConnect = useCallback(
     (params) =>
-      setElements((els) =>
-        addEdge({ ...params, animated: true, style: { stroke: "#fff" } }, els)
-      ),
+      setElements((els) => addEdge({ ...params, style: { strokeWidth } }, els)),
     []
   );
 
@@ -198,40 +112,32 @@ const CustomNodeFlow = () => {
   );
 
   return (
-    <ReactFlow
-      elements={elements}
-      onElementClick={onElementClick}
-      onElementsRemove={onElementsRemove}
-      onConnect={onConnect}
-      onNodeDragStop={onNodeDragStop}
-      style={{ background: bgColor }}
-      onLoad={onLoad}
-      nodeTypes={nodeTypes}
-      connectionLineStyle={connectionLineStyle}
-      snapToGrid={true}
-      snapGrid={snapGrid}
-      defaultZoom={1.5}
-    >
-      <MiniMap
-        nodeStrokeColor={(n: Node) => {
-          switch (n.type) {
-            case "input":
-              return "#0041d0";
-            case "selectorNode":
-              return bgColor;
-            case "output":
-              return "#ff0072";
-            default:
-              return "#0041d0";
-          }
-        }}
-        nodeColor={(n) => {
-          if (n.type === "selectorNode") return bgColor;
-          return "#fff";
-        }}
-      />
-      <Controls />
-    </ReactFlow>
+    <>
+      <ReactFlow
+        elements={elements}
+        onConnect={onConnect}
+        onNodeDragStop={onNodeDragStop}
+        onElementsRemove={onElementsRemove}
+        onElementClick={onElementClick}
+        style={{ background: initBgColor }}
+        onLoad={onLoad}
+        nodeTypes={nodeTypes}
+        snapToGrid={true}
+        snapGrid={snapGrid}
+      >
+        <Button
+          type="primary"
+          style={{ zIndex: 100, left: 10, top: 10 }}
+          onClick={() => {
+            console.log(elements);
+            console.log(JSON.stringify(elements));
+          }}
+        >
+          保 存
+        </Button>
+        <Controls />
+      </ReactFlow>
+    </>
   );
 };
 

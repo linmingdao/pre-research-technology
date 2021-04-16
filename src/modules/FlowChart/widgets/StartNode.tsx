@@ -7,11 +7,12 @@ const StartNode: React.FC<{ data: any }> = ({ data }) => {
       <Handle
         type="source"
         position={Position.Bottom}
-        style={{ background: "#555" }}
-        onConnect={(params) => console.log("handle onConnect", params)}
+        onConnect={(params) =>
+          console.log("handle start node onConnect", params)
+        }
       />
-      <span style={{ backgroundColor: data.color, color: "#fff" }}>
-        <strong>{data.label}</strong>
+      <span className="flow-diagram-node flow-diagram-node_start">
+        {data.label}
       </span>
     </>
   );
