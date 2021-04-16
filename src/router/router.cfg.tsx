@@ -19,7 +19,9 @@ export const routes = [
       },
       {
         path: "/flow_editor",
-        component: lazy(() => import("../modules/FlowChart/FlowChartEditor")),
+        component: lazy(
+          () => import("../modules/FlowChart/Editor/FlowChartEditor")
+        ),
       },
       {
         path: "/gretting",

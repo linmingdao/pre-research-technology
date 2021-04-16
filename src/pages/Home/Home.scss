@@ -2,20 +2,18 @@
   height: 100%;
 
   .nav {
-    height: 63px;
-    line-height: 60px;
-    padding: 0 10px;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 8px;
   }
 
   .content-box {
-    height: calc(100% - 63px);
-    padding: 10px;
+    height: calc(100% - 50px);
     overflow: hidden;
 
     .content {
       height: 100%;
       overflow: auto;
-      padding: 6px;
       position: relative;
       box-sizing: border-box;
       background-color: #fff;
