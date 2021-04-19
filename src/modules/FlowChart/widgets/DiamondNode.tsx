@@ -14,8 +14,9 @@ const DiamondNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Bottom}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-      <span className="flow-diagram-node flow-diagram-node_diamond">
-        {data.label}
+      <span className="flow-diagram-node diamond">
+        <div className="label">{data.label}</div>
+        <div className="bg"></div>
       </span>
     </>
   );

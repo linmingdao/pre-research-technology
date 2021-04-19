@@ -14,9 +14,7 @@ const SquareNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Bottom}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-      <span className="flow-diagram-node flow-diagram-node_square">
-        {data.label}
-      </span>
+      <span className="flow-diagram-node square">{data.label}</span>
     </>
   );
 };

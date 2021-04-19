@@ -11,9 +11,7 @@ const StartNode: React.FC<{ data: any }> = ({ data }) => {
           console.log("handle start node onConnect", params)
         }
       />
-      <span className="flow-diagram-node flow-diagram-node_start">
-        {data.label}
-      </span>
+      <span className="flow-diagram-node start">{data.label}</span>
     </>
   );
 };

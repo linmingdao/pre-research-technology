@@ -64,8 +64,22 @@ const CustomNodeFlow = () => {
       { id: "e2", source: "2", target: "3", style: { strokeWidth } },
       { id: "e3", source: "2", target: "4", style: { strokeWidth } },
       { id: "e4", source: "3", target: "5", style: { strokeWidth } },
-      { id: "e5", source: "4", target: "6", style: { strokeWidth } },
-      { id: "e6", source: "6", target: "7", style: { strokeWidth } },
+      {
+        id: "e5",
+        source: "4",
+        target: "6",
+        type: "smoothstep",
+        arrowHeadType: "arrowclosed",
+        style: { strokeWidth },
+      },
+      {
+        id: "e6",
+        source: "6",
+        target: "7",
+        type: "step",
+        arrowHeadType: "arrow",
+        style: { strokeWidth },
+      },
     ]);
   }, []);
 

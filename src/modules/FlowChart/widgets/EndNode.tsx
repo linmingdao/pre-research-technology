@@ -9,9 +9,7 @@ const EndNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Top}
         onConnect={(params) => console.log("handle end node onConnect", params)}
       />
-      <span className="flow-diagram-node flow-diagram-node_end">
-        {data.label}
-      </span>
+      <span className="flow-diagram-node end">{data.label}</span>
     </>
   );
 };
