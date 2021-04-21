@@ -6,11 +6,13 @@ const DiamondNode: React.FC<{ data: any }> = ({ data }) => {
     <>
       <Handle
         type="target"
+        style={{ backgroundColor: "blue" }}
         position={Position.Top}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
       <Handle
         type="source"
+        style={{ backgroundColor: "red" }}
         position={Position.Bottom}
         onConnect={(params) => console.log("handle onConnect", params)}
       />

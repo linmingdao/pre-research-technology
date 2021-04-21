@@ -6,6 +6,7 @@ const EndNode: React.FC<{ data: any }> = ({ data }) => {
     <>
       <Handle
         type="target"
+        style={{ backgroundColor: "blue" }}
         position={Position.Top}
         onConnect={(params) => console.log("handle end node onConnect", params)}
       />

@@ -6,6 +6,7 @@ const StartNode: React.FC<{ data: any }> = ({ data }) => {
     <>
       <Handle
         type="source"
+        style={{ backgroundColor: "red" }}
         position={Position.Bottom}
         onConnect={(params) =>
           console.log("handle start node onConnect", params)
