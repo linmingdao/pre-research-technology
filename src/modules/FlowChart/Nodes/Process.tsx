@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
-const DiamondNode: React.FC<{ data: any }> = ({ data }) => {
+const Process: React.FC<{ data: any }> = ({ data }) => {
   return (
     <>
       <Handle
@@ -16,12 +16,9 @@ const DiamondNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Bottom}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-      <span className="flow-diagram-node diamond">
-        <div className="label">{data.label}</div>
-        <div className="bg"></div>
-      </span>
+      <div className="node process">{data.label}</div>
     </>
   );
 };
 
-export default memo(DiamondNode);
+export default memo(Process);

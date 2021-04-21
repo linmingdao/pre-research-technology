@@ -1,12 +1,7 @@
 import React from "react";
 import { Menu } from "antd";
 import { useHistory } from "react-router-dom";
-import {
-  HddOutlined,
-  TableOutlined,
-  BarChartOutlined,
-  DatabaseOutlined,
-} from "@ant-design/icons";
+import { ApartmentOutlined, SmileOutlined } from "@ant-design/icons";
 
 const Navigation: React.FC = () => {
   const history = useHistory();
@@ -18,19 +13,10 @@ const Navigation: React.FC = () => {
 
   return (
     <Menu className="nav" mode="horizontal" onSelect={handleMenuSelect}>
-      <Menu.SubMenu
-        key="preresearch"
-        icon={<DatabaseOutlined />}
-        title="流程图"
-      >
-        <Menu.Item key="/flow" icon={<HddOutlined />}>
-          流程图
-        </Menu.Item>
-        <Menu.Item key="/flow_editor" icon={<TableOutlined />}>
-          流程图编辑器
-        </Menu.Item>
-      </Menu.SubMenu>
-      <Menu.Item key="/gretting" icon={<BarChartOutlined />}>
+      <Menu.Item key="/flow" icon={<ApartmentOutlined />}>
+        流程图
+      </Menu.Item>
+      <Menu.Item key="/gretting" icon={<SmileOutlined />}>
         欢迎页
       </Menu.Item>
     </Menu>

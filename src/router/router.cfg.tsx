@@ -18,12 +18,6 @@ export const routes = [
         component: lazy(() => import("../modules/FlowChart/FlowChart")),
       },
       {
-        path: "/flow_editor",
-        component: lazy(
-          () => import("../modules/FlowChart/Editor/FlowChartEditor")
-        ),
-      },
-      {
         path: "/gretting",
         component: lazy(() => import("../modules/Greeting/Greeting")),
       },

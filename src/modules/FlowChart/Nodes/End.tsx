@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
-const EndNode: React.FC<{ data: any }> = ({ data }) => {
+const End: React.FC<{ data: any }> = ({ data }) => {
   return (
     <>
       <Handle
@@ -10,9 +10,9 @@ const EndNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Top}
         onConnect={(params) => console.log("handle end node onConnect", params)}
       />
-      <span className="flow-diagram-node end">{data.label}</span>
+      <div className="node end">{data.label}</div>
     </>
   );
 };
 
-export default memo(EndNode);
+export default memo(End);

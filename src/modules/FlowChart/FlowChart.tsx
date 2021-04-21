@@ -1,4 +1,4 @@
-import "./Flow.scss";
+import "./FlowChart.scss";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import ReactFlow, {
   addEdge,
@@ -9,11 +9,9 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "react-flow-renderer";
 import { DeleteOutlined, SaveOutlined } from "@ant-design/icons";
-
 import { Button } from "antd";
-import Sidebar from "./Sidebar";
-import "./dnd.scss";
-import nodeTypes from "./widgets/index";
+import Sidebar from "./Sidebar/Sidebar";
+import nodeTypes from "./Nodes/index";
 import data from "./data";
 
 const strokeWidth = 2;
@@ -109,10 +107,10 @@ const CustomNodeFlow = () => {
   };
 
   return (
-    <div className="dndflow">
-      <ReactFlowProvider>
-        <Sidebar />
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+    <div className="flow-editor-dnd">
+      <Sidebar />
+      <div className="flow-wrapper" ref={reactFlowWrapper}>
+        <ReactFlowProvider>
           <ReactFlow
             elements={elements}
             nodeTypes={nodeTypes}
@@ -152,8 +150,8 @@ const CustomNodeFlow = () => {
             </Button>
             <Controls />
           </ReactFlow>
-        </div>
-      </ReactFlowProvider>
+        </ReactFlowProvider>
+      </div>
     </div>
   );
 };

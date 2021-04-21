@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
-const StartNode: React.FC<{ data: any }> = ({ data }) => {
+const Start: React.FC<{ data: any }> = ({ data }) => {
   return (
     <>
       <Handle
@@ -12,9 +12,9 @@ const StartNode: React.FC<{ data: any }> = ({ data }) => {
           console.log("handle start node onConnect", params)
         }
       />
-      <span className="flow-diagram-node start">{data.label}</span>
+      <div className="node start">{data.label}</div>
     </>
   );
 };
 
-export default memo(StartNode);
+export default memo(Start);

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
-const SquareNode: React.FC<{ data: any }> = ({ data }) => {
+const Judgment: React.FC<{ data: any }> = ({ data }) => {
   return (
     <>
       <Handle
@@ -16,9 +16,11 @@ const SquareNode: React.FC<{ data: any }> = ({ data }) => {
         position={Position.Bottom}
         onConnect={(params) => console.log("handle onConnect", params)}
       />
-      <span className="flow-diagram-node square">{data.label}</span>
+      <div className="node judgment">
+        <div className="label">{data.label}</div>
+      </div>
     </>
   );
 };
 
-export default memo(SquareNode);
+export default memo(Judgment);
