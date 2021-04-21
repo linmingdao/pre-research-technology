@@ -5,8 +5,8 @@ import ReactFlow, {
   removeElements,
   Controls,
 } from "react-flow-renderer";
-import Sidebar from "./Sidebar";
-import "./dnd.scss";
+import Sidebar from "../Sidebar";
+import "../dnd.scss";
 
 const initialElements = [
   {

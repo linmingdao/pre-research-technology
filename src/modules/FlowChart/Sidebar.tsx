@@ -12,25 +12,32 @@ const Sidebar: React.FC = () => {
         You can drag these nodes to the pane on the right.
       </div>
       <div
-        className="dndnode input"
-        onDragStart={(event) => onDragStart(event, "input")}
+        className="dndnode"
+        onDragStart={(event) => onDragStart(event, "startNode")}
         draggable
       >
-        Input Node
+        开 始
       </div>
       <div
         className="dndnode"
-        onDragStart={(event) => onDragStart(event, "default")}
+        onDragStart={(event) => onDragStart(event, "squareNode")}
         draggable
       >
-        Default Node
+        流 程
       </div>
       <div
-        className="dndnode output"
-        onDragStart={(event) => onDragStart(event, "output")}
+        className="dndnode"
+        onDragStart={(event) => onDragStart(event, "diamondNode")}
         draggable
       >
-        Output Node
+        条 件
+      </div>
+      <div
+        className="dndnode"
+        onDragStart={(event) => onDragStart(event, "endNode")}
+        draggable
+      >
+        结 束
       </div>
     </aside>
   );
