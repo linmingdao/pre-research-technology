@@ -13,14 +13,14 @@ const Sidebar: React.FC = () => {
         onDragStart={(event) => onDragStart(event, "Start")}
         draggable
       >
-        <div className="node start">开始</div>
+        <div className="node start">开始节点</div>
       </div>
       <div
         className="dnd-node-wrapper"
         onDragStart={(event) => onDragStart(event, "Process")}
         draggable
       >
-        <div className="node process">流程</div>
+        <div className="node process">流程节点</div>
       </div>
       <div
         className="dnd-node-wrapper"
@@ -28,7 +28,7 @@ const Sidebar: React.FC = () => {
         draggable
       >
         <div className="node judgment">
-          <div className="label">条件</div>
+          <div className="label">条件节点</div>
         </div>
       </div>
       <div
@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
         onDragStart={(event) => onDragStart(event, "End")}
         draggable
       >
-        <div className="node end">结束</div>
+        <div className="node end">结束节点</div>
       </div>
     </aside>
   );

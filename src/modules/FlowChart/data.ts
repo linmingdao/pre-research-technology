@@ -2,25 +2,34 @@ const data = [
   {
     id: "1",
     type: "Start",
-    position: { x: 217, y: -60 },
-    data: { label: "告警" },
+    position: { x: 207, y: -96 },
+    data: {
+      label:
+        "水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水",
+    },
   },
   {
     id: "2",
     type: "Process",
-    position: { x: 260, y: 60 },
-    data: { label: "查看GC线程CPU" },
+    position: { x: 313, y: 34 },
+    data: {
+      label:
+        "水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水",
+    },
   },
   {
     id: "3",
     type: "Judgment",
     position: { x: 86, y: 219 },
-    data: { label: ">60%" },
+    data: {
+      label:
+        "水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水",
+    },
   },
   {
     id: "4",
     type: "Judgment",
-    position: { x: 379, y: 175 },
+    position: { x: 435, y: 176 },
     data: { label: "<=60%" },
   },
   {
@@ -32,14 +41,17 @@ const data = [
   {
     id: "6",
     type: "Process",
-    position: { x: 431, y: 300 },
+    position: { x: 494, y: 301 },
     data: { label: "查看业务线程CPU" },
   },
   {
     id: "7",
     type: "End",
     position: { x: 291, y: 428 },
-    data: { label: "END" },
+    data: {
+      label:
+        "水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水水电水",
+    },
   },
   {
     id: "e5",

@@ -54,53 +54,59 @@
     align-items: center;
     justify-content: center;
     border: 1px solid #686868;
+
+    .label {
+      z-index: 2;
+      overflow: hidden;
+      word-wrap: break-word;
+      display: -webkit-box;
+      text-align: center;
+      text-overflow: ellipsis;
+      -webkit-box-orient: vertical;
+    }
   }
 
   .node.start {
-    min-width: 40px;
-    min-height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    border-color: #c19402;
-    background-color: #ffc400;
+    border-color: #f45858;
+    background-color: #f29191;
+  }
+
+  .node.end {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-color: #f45858;
+    background-color: #f29191;
   }
 
   .node.process {
     min-width: 80px;
     min-height: 40px;
     border-radius: 5px;
-    border-color: #2abb70;
-    background-color: #4fe698;
+    border-color: #35b38b;
+    background-color: #46d8aa;
   }
 
   .node.judgment {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-width: 0;
     position: relative;
 
     &::after {
       content: "";
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       z-index: -1;
       transform: rotate(45deg);
-      border-radius: 3px;
+      border-radius: 5px;
       border: 1px solid #3eabda;
       background-color: #66d1ff;
     }
-
-    .label {
-      z-index: 2;
-    }
-  }
-
-  .node.end {
-    min-width: 40px;
-    min-height: 40px;
-    border-radius: 50%;
-    border-color: #f45858;
-    background-color: #f29191;
   }
 
   .sidebar .node.judgment::after {
