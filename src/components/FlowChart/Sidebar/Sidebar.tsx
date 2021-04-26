@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { NodeDescription } from "../Nodes/index";
+import { NodeDescription } from "../types";
 
 export interface SidebarProps {
   editable: boolean;
@@ -21,6 +21,7 @@ const Sidebar: React.FC<SidebarProps> = ({ nodes, editable }) => {
           <div
             draggable
             className="dnd-node-wrapper"
+            key={type}
             onDragStart={(event) => onDragStart(event, type)}
           >
             <div className={classes}>

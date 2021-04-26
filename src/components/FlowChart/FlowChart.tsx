@@ -1,4 +1,3 @@
-import "./FlowChart.scss";
 import shortid from "shortid";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import ReactFlow, {
@@ -11,36 +10,16 @@ import ReactFlow, {
 } from "react-flow-renderer";
 import Toolbar from "./Toolbar/Toolbar";
 import Sidebar from "./Sidebar/Sidebar";
-import {
-  builtInNodes,
-  NodeDescription,
-  BuiltInAvailableType,
-} from "./Nodes/index";
+import { builtInNodes } from "./Nodes/index";
 import { getNodeTypesAndMapFromConfig, mergeCustomNodes } from "./utils";
-
-export interface PositionType {
-  x: number;
-  y: number;
-}
-
-export interface DataType {
-  label: string;
-  [key: string]: any;
-}
-
-export interface ElementType {
-  id: string;
-  type: string;
-  data: DataType;
-  position: PositionType;
-}
+import { AvailableBuiltInType, NodeDescription, ElementType } from "./types";
 
 export interface FlowChartProps {
   editable?: boolean;
   dataSource?: any[];
   strokeWidth?: number;
   customNodes?: NodeDescription[];
-  defaultNodes?: BuiltInAvailableType[];
+  defaultNodes?: AvailableBuiltInType[];
   onSave?: (data: any[]) => void;
   onElementClick?: (event: any, element: any) => void;
   onElementDrop?: (element: ElementType) => ElementType | false;
@@ -51,7 +30,7 @@ const FlowChart: React.FC<FlowChartProps> = ({
   dataSource = [],
   strokeWidth = 2,
   customNodes = [],
-  defaultNodes = ["end", "judgment", "process", "start"],
+  defaultNodes,
   onSave,
   onElementClick,
   onElementDrop = (element: ElementType) => element,
@@ -60,26 +39,28 @@ const FlowChart: React.FC<FlowChartProps> = ({
   const [elements, setElements] = useState<any[]>(dataSource);
   const [reactflowInstance, setReactflowInstance] = useState<any>(null);
   const { nodes, nodeTypes, nodesMap } = getNodeTypesAndMapFromConfig(
-    mergeCustomNodes(customNodes, builtInNodes, defaultNodes)
+    mergeCustomNodes(
+      customNodes,
+      builtInNodes,
+      defaultNodes && defaultNodes.length
+        ? defaultNodes
+        : [
+            AvailableBuiltInType.END,
+            AvailableBuiltInType.JUDGMENT,
+            AvailableBuiltInType.PROCESS,
+            AvailableBuiltInType.START,
+          ]
+    )
   );
-
   const onNodeDragStop = (event: any, node: any) =>
     setElements((els) =>
-      els.map((item) => {
-        if (item.id === node.id) {
-          return node;
-        } else {
-          return item;
-        }
-      })
+      els.map((item) => (item.id === node.id ? node : item))
     );
-
   const onElementsRemove = useCallback(
     (elementsToRemove) =>
       setElements((els) => removeElements(elementsToRemove, els)),
     []
   );
-
   const onConnect = useCallback(
     (params) =>
       setElements((els) =>
@@ -95,19 +76,14 @@ const FlowChart: React.FC<FlowChartProps> = ({
       ),
     [strokeWidth]
   );
-
   const onLoad = useCallback(
-    (rfi) => {
-      !reactflowInstance && setReactflowInstance(rfi);
-    },
+    (rfi) => !reactflowInstance && setReactflowInstance(rfi),
     [reactflowInstance]
   );
-
   const onDragOver = (event: any) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-
   const onDrop = (event: any) => {
     event.preventDefault();
     if (reactFlowWrapper && reactFlowWrapper.current) {

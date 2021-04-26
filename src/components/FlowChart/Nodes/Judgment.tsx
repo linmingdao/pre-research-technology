@@ -1,21 +1,20 @@
 import React, { memo } from "react";
 import { Handle, Position } from "react-flow-renderer";
+import { DataType } from "../types";
 import NodeLabel from "../NodeLabel/NodeLabel";
 
-const Judgment: React.FC<{ data: any }> = ({ data }) => {
+const Judgment: React.FC<{ data: DataType }> = ({ data }) => {
   return (
     <>
       <Handle
         type="target"
         style={{ backgroundColor: "#46d8aa" }}
         position={Position.Top}
-        onConnect={(params) => console.log("handle onConnect", params)}
       />
       <Handle
         type="source"
         style={{ backgroundColor: "#f29191" }}
         position={Position.Bottom}
-        onConnect={(params) => console.log("handle onConnect", params)}
       />
       <div className="node judgment">
         <NodeLabel

@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, Popconfirm } from "antd";
-import { DeleteOutlined, SaveOutlined } from "@ant-design/icons";
+import React from 'react';
+import { Button, Popconfirm } from 'antd';
+import { DeleteOutlined, SaveOutlined } from '@ant-design/icons';
 
 export interface ToolbarProps {
   editable?: boolean;
@@ -11,27 +11,11 @@ export interface ToolbarProps {
 const Toolbar: React.FC<ToolbarProps> = ({ editable, onSave, onEmpty }) => {
   return editable ? (
     <>
-      <Button
-        type="primary"
-        shape="round"
-        icon={<SaveOutlined />}
-        style={{ zIndex: 100, left: 10, top: 10 }}
-        onClick={() => onSave && onSave()}
-      >
+      <Button type="primary" shape="round" icon={<SaveOutlined />} style={{ zIndex: 100, left: 10, top: 10 }} onClick={() => onSave && onSave()}>
         保 存
       </Button>
-      <Popconfirm
-        okText="确定"
-        cancelText="取消"
-        title="确认清空面板内容么?"
-        onConfirm={() => onEmpty && onEmpty()}
-      >
-        <Button
-          danger
-          shape="round"
-          icon={<DeleteOutlined />}
-          style={{ zIndex: 100, left: 20, top: 10 }}
-        >
+      <Popconfirm okText="确定" cancelText="取消" title="确认清空面板内容么?" onConfirm={() => onEmpty && onEmpty()}>
+        <Button danger shape="round" icon={<DeleteOutlined />} style={{ zIndex: 100, left: 20, top: 10 }}>
           清 空
         </Button>
       </Popconfirm>
@@ -41,6 +25,6 @@ const Toolbar: React.FC<ToolbarProps> = ({ editable, onSave, onEmpty }) => {
   );
 };
 
-Toolbar.displayName = "Toolbar";
+Toolbar.displayName = 'Toolbar';
 
 export default Toolbar;

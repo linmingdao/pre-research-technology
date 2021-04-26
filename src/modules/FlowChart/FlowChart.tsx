@@ -1,6 +1,10 @@
 import data from "./data";
 import { message } from "antd";
-import { FlowChart, ElementType } from "../../components/FlowChart";
+import FlowChart, {
+  ElementType,
+  AvailableBuiltInType,
+} from "../../components/FlowChart";
+import "../../components/FlowChart/_style.scss";
 
 const FlowChartDemo: React.FC = () => {
   const onSave = (elements: any[]) => message.info(JSON.stringify(elements));
@@ -17,6 +21,12 @@ const FlowChartDemo: React.FC = () => {
       onSave={onSave}
       onElementDrop={onElementDrop}
       onElementClick={onElementClick}
+      defaultNodes={[
+        AvailableBuiltInType.END,
+        AvailableBuiltInType.JUDGMENT,
+        AvailableBuiltInType.PROCESS,
+        AvailableBuiltInType.START,
+      ]}
     />
   );
 };

@@ -1,2 +1,3 @@
-export type { ElementType } from "./FlowChart";
-export { default as FlowChart } from "./FlowChart";
+import FlowChart from "./FlowChart";
+export * from "./types";
+export default FlowChart;
