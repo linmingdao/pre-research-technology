@@ -10,7 +10,7 @@ import ReactFlow, {
   ReactFlowProvider,
 } from "react-flow-renderer";
 import { DeleteOutlined, SaveOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 import Sidebar from "./Sidebar/Sidebar";
 import nodeTypes from "./Nodes/index";
 
@@ -34,24 +34,23 @@ export interface NodeType {
 }
 
 export interface FlowChartProps {
+  editable?: boolean;
   dataSource?: any[];
+  onSave?: (data: any[]) => void;
   onElementClick?: (event: any, element: any) => void;
   onElementDrop?: (node: NodeType) => NodeType | false;
 }
 
 const FlowChart: React.FC<FlowChartProps> = ({
+  editable = false,
   dataSource = [],
+  onSave,
   onElementClick,
   onElementDrop = (node: NodeType) => node,
 }) => {
   const reactFlowWrapper = useRef<any>(null);
   const [elements, setElements] = useState<any[]>(dataSource);
   const [reactflowInstance, setReactflowInstance] = useState<any>(null);
-
-  useEffect(() => {
-    reactflowInstance && reactflowInstance.fitView();
-  }, [reactflowInstance]);
-
   const onNodeDragStop = (event: any, node: any) =>
     setElements((els) =>
       els.map((item) => {
@@ -62,13 +61,11 @@ const FlowChart: React.FC<FlowChartProps> = ({
         }
       })
     );
-
   const onElementsRemove = useCallback(
     (elementsToRemove) =>
       setElements((els) => removeElements(elementsToRemove, els)),
     []
   );
-
   const onConnect = useCallback(
     (params) =>
       setElements((els) =>
@@ -84,46 +81,47 @@ const FlowChart: React.FC<FlowChartProps> = ({
       ),
     []
   );
-
   const onLoad = useCallback(
     (rfi) => {
       !reactflowInstance && setReactflowInstance(rfi);
     },
     [reactflowInstance]
   );
-
   const onDragOver = (event: any) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
-
   const onDrop = (event: any) => {
     event.preventDefault();
-
     if (reactFlowWrapper && reactFlowWrapper.current) {
-      const reactFlowBounds = reactFlowWrapper?.current?.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
+      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       const position = reactflowInstance.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
-
       const newNode = onElementDrop({
         type,
         position,
         data: { label: type },
         id: shortid.generate(),
       });
-
-      if (newNode) {
-        setElements((es) => es.concat(newNode));
-      }
+      newNode && setElements((es) => es.concat(newNode));
     }
   };
 
+  useEffect(() => {
+    const fitView = () => reactflowInstance && reactflowInstance.fitView();
+    fitView();
+    window.addEventListener("resize", fitView);
+    return () => {
+      window.removeEventListener("resize", fitView);
+    };
+  }, [reactflowInstance]);
+
   return (
     <div className="flow-editor-dnd">
-      <Sidebar />
+      {editable ? <Sidebar /> : <></>}
       <div className="flow-wrapper" ref={reactFlowWrapper}>
         <ReactFlowProvider>
           <ReactFlow
@@ -131,39 +129,48 @@ const FlowChart: React.FC<FlowChartProps> = ({
             nodeTypes={nodeTypes}
             zoomOnPinch={false}
             zoomOnScroll={false}
+            nodesDraggable={editable}
+            elementsSelectable={editable}
             onLoad={onLoad}
             onDrop={onDrop}
-            onDragOver={onDragOver}
             onConnect={onConnect}
+            onDragOver={onDragOver}
             onElementClick={onElementClick}
             onNodeDragStop={onNodeDragStop}
             onElementsRemove={onElementsRemove}
           >
             <Background variant={BackgroundVariant.Lines} />
-            <Button
-              type="primary"
-              shape="round"
-              icon={<SaveOutlined />}
-              style={{ zIndex: 100, left: 10, top: 10 }}
-              onClick={() => {
-                console.log(elements);
-                console.log(JSON.stringify(elements));
-              }}
-            >
-              保 存
-            </Button>
-            <Button
-              danger
-              shape="round"
-              icon={<DeleteOutlined />}
-              style={{ zIndex: 100, left: 20, top: 10 }}
-              onClick={() => {
-                setElements([]);
-              }}
-            >
-              清 空
-            </Button>
-            <Controls />
+            {editable ? (
+              <>
+                <Button
+                  type="primary"
+                  shape="round"
+                  icon={<SaveOutlined />}
+                  style={{ zIndex: 100, left: 10, top: 10 }}
+                  onClick={() => onSave && onSave(elements)}
+                >
+                  保 存
+                </Button>
+                <Popconfirm
+                  okText="确定"
+                  cancelText="取消"
+                  title="确认清空面板内容么?"
+                  onConfirm={() => setElements([])}
+                >
+                  <Button
+                    danger
+                    shape="round"
+                    icon={<DeleteOutlined />}
+                    style={{ zIndex: 100, left: 20, top: 10 }}
+                  >
+                    清 空
+                  </Button>
+                </Popconfirm>
+              </>
+            ) : (
+              <></>
+            )}
+            <Controls showInteractive={editable} />
           </ReactFlow>
         </ReactFlowProvider>
       </div>
