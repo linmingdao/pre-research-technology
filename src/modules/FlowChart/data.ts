@@ -1,7 +1,7 @@
 const data = [
   {
     id: "1",
-    type: "Start",
+    type: "start",
     position: { x: 207, y: -96 },
     data: {
       label:
@@ -10,7 +10,7 @@ const data = [
   },
   {
     id: "2",
-    type: "Process",
+    type: "process",
     position: { x: 313, y: 34 },
     data: {
       label:
@@ -19,7 +19,7 @@ const data = [
   },
   {
     id: "3",
-    type: "Judgment",
+    type: "judgment",
     position: { x: 86, y: 219 },
     data: {
       label:
@@ -28,25 +28,25 @@ const data = [
   },
   {
     id: "4",
-    type: "Judgment",
+    type: "judgment",
     position: { x: 435, y: 176 },
     data: { label: "<=60%" },
   },
   {
     id: "5",
-    type: "End",
+    type: "end",
     position: { x: 50, y: 377 },
     data: { label: "未知" },
   },
   {
     id: "6",
-    type: "Process",
+    type: "process",
     position: { x: 494, y: 301 },
     data: { label: "查看业务线程CPU" },
   },
   {
     id: "7",
-    type: "End",
+    type: "end",
     position: { x: 291, y: 428 },
     data: {
       label:

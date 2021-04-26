@@ -1,44 +1,37 @@
 import React from "react";
+import classNames from "classnames";
+import { NodeDescription } from "../Nodes/index";
 
-const Sidebar: React.FC = () => {
+export interface SidebarProps {
+  editable: boolean;
+  nodes: NodeDescription[];
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ nodes, editable }) => {
   const onDragStart = (event: any, nodeType: string) => {
     event.dataTransfer.setData("application/reactflow", nodeType);
     event.dataTransfer.effectAllowed = "move";
   };
 
-  return (
+  return editable ? (
     <aside className="sidebar">
-      <div
-        className="dnd-node-wrapper"
-        onDragStart={(event) => onDragStart(event, "Start")}
-        draggable
-      >
-        <div className="node start">开始节点</div>
-      </div>
-      <div
-        className="dnd-node-wrapper"
-        onDragStart={(event) => onDragStart(event, "Process")}
-        draggable
-      >
-        <div className="node process">流程节点</div>
-      </div>
-      <div
-        className="dnd-node-wrapper"
-        onDragStart={(event) => onDragStart(event, "Judgment")}
-        draggable
-      >
-        <div className="node judgment">
-          <div className="label">条件节点</div>
-        </div>
-      </div>
-      <div
-        className="dnd-node-wrapper"
-        onDragStart={(event) => onDragStart(event, "End")}
-        draggable
-      >
-        <div className="node end">结束节点</div>
-      </div>
+      {nodes.map(({ type, label }) => {
+        const classes = classNames("node", type);
+        return (
+          <div
+            draggable
+            className="dnd-node-wrapper"
+            onDragStart={(event) => onDragStart(event, type)}
+          >
+            <div className={classes}>
+              <div className="label">{label}</div>
+            </div>
+          </div>
+        );
+      })}
     </aside>
+  ) : (
+    <></>
   );
 };
 

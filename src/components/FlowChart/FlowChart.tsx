@@ -9,12 +9,14 @@ import ReactFlow, {
   removeElements,
   ReactFlowProvider,
 } from "react-flow-renderer";
-import { DeleteOutlined, SaveOutlined } from "@ant-design/icons";
-import { Button, Popconfirm } from "antd";
+import Toolbar from "./Toolbar/Toolbar";
 import Sidebar from "./Sidebar/Sidebar";
-import nodeTypes from "./Nodes/index";
-
-const strokeWidth = 2;
+import {
+  builtInNodes,
+  NodeDescription,
+  builtInAvailableType,
+} from "./Nodes/index";
+import { getNodeTypesAndMapFromConfig, mergeCustomNodes } from "./utils";
 
 export interface PositionType {
   x: number;
@@ -36,6 +38,9 @@ export interface NodeType {
 export interface FlowChartProps {
   editable?: boolean;
   dataSource?: any[];
+  strokeWidth?: number;
+  customNodes?: NodeDescription[];
+  defaultNodes?: builtInAvailableType[];
   onSave?: (data: any[]) => void;
   onElementClick?: (event: any, element: any) => void;
   onElementDrop?: (node: NodeType) => NodeType | false;
@@ -44,6 +49,9 @@ export interface FlowChartProps {
 const FlowChart: React.FC<FlowChartProps> = ({
   editable = false,
   dataSource = [],
+  strokeWidth = 2,
+  customNodes = [],
+  defaultNodes = ["end", "judgment", "process", "start"],
   onSave,
   onElementClick,
   onElementDrop = (node: NodeType) => node,
@@ -51,6 +59,9 @@ const FlowChart: React.FC<FlowChartProps> = ({
   const reactFlowWrapper = useRef<any>(null);
   const [elements, setElements] = useState<any[]>(dataSource);
   const [reactflowInstance, setReactflowInstance] = useState<any>(null);
+  const { nodes, nodeTypes, nodesMap } = getNodeTypesAndMapFromConfig(
+    mergeCustomNodes(customNodes, builtInNodes, defaultNodes)
+  );
   const onNodeDragStop = (event: any, node: any) =>
     setElements((els) =>
       els.map((item) => {
@@ -79,7 +90,7 @@ const FlowChart: React.FC<FlowChartProps> = ({
           els
         )
       ),
-    []
+    [strokeWidth]
   );
   const onLoad = useCallback(
     (rfi) => {
@@ -103,7 +114,7 @@ const FlowChart: React.FC<FlowChartProps> = ({
       const newNode = onElementDrop({
         type,
         position,
-        data: { label: type },
+        data: { label: nodesMap[type].label },
         id: shortid.generate(),
       });
       newNode && setElements((es) => es.concat(newNode));
@@ -121,14 +132,15 @@ const FlowChart: React.FC<FlowChartProps> = ({
 
   return (
     <div className="flow-editor-dnd">
-      {editable ? <Sidebar /> : <></>}
+      <Sidebar nodes={nodes} editable={editable} />
       <div className="flow-wrapper" ref={reactFlowWrapper}>
         <ReactFlowProvider>
           <ReactFlow
             elements={elements}
-            nodeTypes={nodeTypes}
             zoomOnPinch={false}
             zoomOnScroll={false}
+            zoomOnDoubleClick={false}
+            nodeTypes={nodeTypes}
             nodesDraggable={editable}
             elementsSelectable={editable}
             onLoad={onLoad}
@@ -139,38 +151,13 @@ const FlowChart: React.FC<FlowChartProps> = ({
             onNodeDragStop={onNodeDragStop}
             onElementsRemove={onElementsRemove}
           >
-            <Background variant={BackgroundVariant.Lines} />
-            {editable ? (
-              <>
-                <Button
-                  type="primary"
-                  shape="round"
-                  icon={<SaveOutlined />}
-                  style={{ zIndex: 100, left: 10, top: 10 }}
-                  onClick={() => onSave && onSave(elements)}
-                >
-                  保 存
-                </Button>
-                <Popconfirm
-                  okText="确定"
-                  cancelText="取消"
-                  title="确认清空面板内容么?"
-                  onConfirm={() => setElements([])}
-                >
-                  <Button
-                    danger
-                    shape="round"
-                    icon={<DeleteOutlined />}
-                    style={{ zIndex: 100, left: 20, top: 10 }}
-                  >
-                    清 空
-                  </Button>
-                </Popconfirm>
-              </>
-            ) : (
-              <></>
-            )}
             <Controls showInteractive={editable} />
+            <Background variant={BackgroundVariant.Lines} />
+            <Toolbar
+              editable={editable}
+              onEmpty={() => setElements([])}
+              onSave={() => onSave && onSave(elements)}
+            />
           </ReactFlow>
         </ReactFlowProvider>
       </div>
