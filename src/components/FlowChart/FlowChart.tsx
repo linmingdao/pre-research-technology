@@ -14,7 +14,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import {
   builtInNodes,
   NodeDescription,
-  builtInAvailableType,
+  BuiltInAvailableType,
 } from "./Nodes/index";
 import { getNodeTypesAndMapFromConfig, mergeCustomNodes } from "./utils";
 
@@ -28,7 +28,7 @@ export interface DataType {
   [key: string]: any;
 }
 
-export interface NodeType {
+export interface ElementType {
   id: string;
   type: string;
   data: DataType;
@@ -40,10 +40,10 @@ export interface FlowChartProps {
   dataSource?: any[];
   strokeWidth?: number;
   customNodes?: NodeDescription[];
-  defaultNodes?: builtInAvailableType[];
+  defaultNodes?: BuiltInAvailableType[];
   onSave?: (data: any[]) => void;
   onElementClick?: (event: any, element: any) => void;
-  onElementDrop?: (node: NodeType) => NodeType | false;
+  onElementDrop?: (element: ElementType) => ElementType | false;
 }
 
 const FlowChart: React.FC<FlowChartProps> = ({
@@ -54,7 +54,7 @@ const FlowChart: React.FC<FlowChartProps> = ({
   defaultNodes = ["end", "judgment", "process", "start"],
   onSave,
   onElementClick,
-  onElementDrop = (node: NodeType) => node,
+  onElementDrop = (element: ElementType) => element,
 }) => {
   const reactFlowWrapper = useRef<any>(null);
   const [elements, setElements] = useState<any[]>(dataSource);
@@ -62,6 +62,7 @@ const FlowChart: React.FC<FlowChartProps> = ({
   const { nodes, nodeTypes, nodesMap } = getNodeTypesAndMapFromConfig(
     mergeCustomNodes(customNodes, builtInNodes, defaultNodes)
   );
+
   const onNodeDragStop = (event: any, node: any) =>
     setElements((els) =>
       els.map((item) => {
@@ -72,11 +73,13 @@ const FlowChart: React.FC<FlowChartProps> = ({
         }
       })
     );
+
   const onElementsRemove = useCallback(
     (elementsToRemove) =>
       setElements((els) => removeElements(elementsToRemove, els)),
     []
   );
+
   const onConnect = useCallback(
     (params) =>
       setElements((els) =>
@@ -92,16 +95,19 @@ const FlowChart: React.FC<FlowChartProps> = ({
       ),
     [strokeWidth]
   );
+
   const onLoad = useCallback(
     (rfi) => {
       !reactflowInstance && setReactflowInstance(rfi);
     },
     [reactflowInstance]
   );
+
   const onDragOver = (event: any) => {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   };
+
   const onDrop = (event: any) => {
     event.preventDefault();
     if (reactFlowWrapper && reactFlowWrapper.current) {

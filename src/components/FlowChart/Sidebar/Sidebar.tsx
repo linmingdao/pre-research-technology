@@ -35,4 +35,6 @@ const Sidebar: React.FC<SidebarProps> = ({ nodes, editable }) => {
   );
 };
 
+Sidebar.displayName = "Sidebar";
+
 export default Sidebar;

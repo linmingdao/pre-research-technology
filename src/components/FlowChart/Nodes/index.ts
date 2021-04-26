@@ -4,7 +4,7 @@ import start from "./Start";
 import process from "./Process";
 import judgment from "./Judgment";
 
-export type builtInAvailableType = "end" | "start" | "process" | "judgment";
+export type BuiltInAvailableType = "end" | "start" | "process" | "judgment";
 
 export interface NodeDescription {
   type: string;

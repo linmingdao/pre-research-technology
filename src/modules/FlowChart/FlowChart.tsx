@@ -1,6 +1,6 @@
 import data from "./data";
 import { message } from "antd";
-import { FlowChart, NodeType } from "../../components/FlowChart";
+import { FlowChart, ElementType } from "../../components/FlowChart";
 
 const FlowChartDemo: React.FC = () => {
   const onSave = (elements: any[]) => message.info(JSON.stringify(elements));
@@ -8,7 +8,7 @@ const FlowChartDemo: React.FC = () => {
   const onElementClick = (event: any, element: any) =>
     message.info(`You click：${JSON.stringify(element)}`);
 
-  const onElementDrop = (node: NodeType) => node;
+  const onElementDrop = (element: ElementType) => element;
 
   return (
     <FlowChart

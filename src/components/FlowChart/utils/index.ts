@@ -1,4 +1,4 @@
-import { builtInAvailableType, NodeDescription, NodeTypes } from "../Nodes";
+import { BuiltInAvailableType, NodeDescription, NodeTypes } from "../Nodes";
 
 export function getNodeTypesAndMapFromConfig(nodes: NodeDescription[]) {
   const nodeTypes: NodeTypes = {};
@@ -13,7 +13,7 @@ export function getNodeTypesAndMapFromConfig(nodes: NodeDescription[]) {
 export function mergeCustomNodes(
   customNodes: NodeDescription[],
   builtInNodes: NodeDescription[],
-  defaultNodes: builtInAvailableType[]
+  defaultNodes: BuiltInAvailableType[]
 ) {
   return [
     ...customNodes,
