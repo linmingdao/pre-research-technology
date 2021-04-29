@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import data from "./data";
 import { message } from "antd";
 import FlowChart, {
@@ -9,6 +9,7 @@ import "../../components/FlowChart/_style.scss";
 
 const FlowChartDemo: React.FC = () => {
   const flowRef = useRef<any>(null);
+  const [dataSource, setDataSource] = useState<any[]>(data);
   const onSave = (elements: any[]) => message.info(JSON.stringify(elements));
 
   const onElementClick = (event: any, element: any) =>
@@ -16,18 +17,24 @@ const FlowChartDemo: React.FC = () => {
 
   const onElementDrop = (element: ElementType) => element;
 
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     console.log(flowRef);
+  //     flowRef.current.setElements([]);
+  //   }, 1000);
+  // }, []);
+
   useEffect(() => {
     setTimeout(() => {
-      console.log(flowRef);
-      flowRef.current.setElements([]);
-    }, 1000);
+      setDataSource([]);
+    }, 5000);
   }, []);
 
   return (
     <FlowChart
       editable
       ref={flowRef}
-      dataSource={data}
+      dataSource={dataSource}
       onSave={onSave}
       onElementDrop={onElementDrop}
       onElementClick={onElementClick}

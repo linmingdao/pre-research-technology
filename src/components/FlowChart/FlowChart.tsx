@@ -36,7 +36,7 @@ const FlowChart: React.FC<FlowChartProps> = React.forwardRef(
     ref
   ) => {
     const reactFlowWrapper = useRef<any>(null);
-    const [elements, setElements] = useState<any[]>(dataSource);
+    const [elements, setElements] = useState<any[]>([]);
     const [reactflowInstance, setReactflowInstance] = useState<any>(null);
     const { nodes, nodeTypes, nodesMap } = getNodeTypesAndMapFromConfig(
       mergeCustomNodes(
@@ -116,6 +116,10 @@ const FlowChart: React.FC<FlowChartProps> = React.forwardRef(
         window.removeEventListener("resize", fitView);
       };
     }, [reactflowInstance]);
+
+    useEffect(() => {
+      setElements(dataSource);
+    }, [dataSource]);
 
     return (
       <div className="flow-editor-dnd">
