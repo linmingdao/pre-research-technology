@@ -1,4 +1,4 @@
-import { AvailableBuiltInType, NodeDescription, NodeTypes } from "../types";
+import { AvailableBuiltInType, NodeDescription, NodeTypes } from '../types';
 
 export function getNodeTypesAndMapFromConfig(nodes: NodeDescription[]) {
   const nodeTypes: NodeTypes = {};
@@ -10,15 +10,6 @@ export function getNodeTypesAndMapFromConfig(nodes: NodeDescription[]) {
   return { nodes, nodeTypes, nodesMap };
 }
 
-export function mergeCustomNodes(
-  customNodes: NodeDescription[],
-  builtInNodes: NodeDescription[],
-  defaultNodes: AvailableBuiltInType[]
-) {
-  return [
-    ...customNodes,
-    ...builtInNodes.filter((item: NodeDescription) =>
-      (defaultNodes as string[]).includes(item.type)
-    ),
-  ];
+export function mergeCustomNodes(customNodes: NodeDescription[], builtInNodes: NodeDescription[], defaultNodes: AvailableBuiltInType[]) {
+  return [...customNodes, ...builtInNodes.filter((item: NodeDescription) => (defaultNodes as string[]).includes(item.type))];
 }

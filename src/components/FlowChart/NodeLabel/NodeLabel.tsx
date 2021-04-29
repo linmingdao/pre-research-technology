@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React, { CSSProperties } from 'react';
 
 export interface NodeLabelProps {
   label: string;
@@ -6,22 +6,14 @@ export interface NodeLabelProps {
   style?: CSSProperties;
 }
 
-const NodeLabel: React.FC<NodeLabelProps> = ({
-  label,
-  style = {},
-  lineClamp = 2,
-}) => {
+const NodeLabel: React.FC<NodeLabelProps> = ({ label, style = {}, lineClamp = 2 }) => {
   return (
-    <div
-      className="label"
-      title={label}
-      style={{ WebkitLineClamp: lineClamp, ...style }}
-    >
+    <div className="label" title={label} style={{ WebkitLineClamp: lineClamp, ...style }}>
       {label}
     </div>
   );
 };
 
-NodeLabel.displayName = "NodeLabel";
+NodeLabel.displayName = 'NodeLabel';
 
 export default NodeLabel;

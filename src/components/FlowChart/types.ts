@@ -31,3 +31,16 @@ export interface ElementType {
   data: DataType;
   position: PositionType;
 }
+
+export interface FlowChartProps {
+  ref?: any;
+  editable?: boolean;
+  dataSource?: any[];
+  strokeWidth?: number;
+  customNodes?: NodeDescription[];
+  defaultNodes?: AvailableBuiltInType[];
+  onSave?: (data: any[]) => void;
+  onElementClick?: (event: any, element: any) => void;
+  onNodeDoubleClick?: (event: any, element: any) => void;
+  onElementDrop?: (element: ElementType) => ElementType | false;
+}

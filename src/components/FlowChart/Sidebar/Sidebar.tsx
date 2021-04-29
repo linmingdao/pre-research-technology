@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
-import { NodeDescription } from "../types";
+import React from 'react';
+import classNames from 'classnames';
+import { NodeDescription } from '../types';
 
 export interface SidebarProps {
   editable: boolean;
@@ -9,21 +9,16 @@ export interface SidebarProps {
 
 const Sidebar: React.FC<SidebarProps> = ({ nodes, editable }) => {
   const onDragStart = (event: any, nodeType: string) => {
-    event.dataTransfer.setData("application/reactflow", nodeType);
-    event.dataTransfer.effectAllowed = "move";
+    event.dataTransfer.setData('application/reactflow', nodeType);
+    event.dataTransfer.effectAllowed = 'move';
   };
 
   return editable ? (
     <aside className="sidebar">
       {nodes.map(({ type, label }) => {
-        const classes = classNames("node", type);
+        const classes = classNames('node', type);
         return (
-          <div
-            draggable
-            className="dnd-node-wrapper"
-            key={type}
-            onDragStart={(event) => onDragStart(event, type)}
-          >
+          <div draggable className="dnd-node-wrapper" key={type} onDragStart={event => onDragStart(event, type)}>
             <div className={classes}>
               <div className="label">{label}</div>
             </div>
@@ -36,6 +31,6 @@ const Sidebar: React.FC<SidebarProps> = ({ nodes, editable }) => {
   );
 };
 
-Sidebar.displayName = "Sidebar";
+Sidebar.displayName = 'Sidebar';
 
 export default Sidebar;
