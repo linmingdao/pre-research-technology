@@ -14,6 +14,18 @@ export const routes = [
     component: lazy(() => import("../pages/Home/Home")),
     routes: [
       {
+        path: "/braft",
+        component: lazy(() => import("../modules/BraftEditor/BraftEditor")),
+      },
+      {
+        path: "/quill",
+        component: lazy(() => import("../modules/ReactQuill/ReactQuill")),
+      },
+      {
+        path: "/draft",
+        component: lazy(() => import("../modules/DraftJs/DraftJs")),
+      },
+      {
         path: "/flow",
         component: lazy(() => import("../modules/FlowChart/FlowChart")),
       },

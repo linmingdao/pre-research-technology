@@ -13,6 +13,15 @@ const Navigation: React.FC = () => {
 
   return (
     <Menu className="nav" mode="horizontal" onSelect={handleMenuSelect}>
+      <Menu.Item key="/braft" icon={<ApartmentOutlined />}>
+        富文本 braft
+      </Menu.Item>
+      <Menu.Item key="/quill" icon={<ApartmentOutlined />}>
+        富文本 react-quill
+      </Menu.Item>
+      <Menu.Item key="/draft" icon={<ApartmentOutlined />}>
+        富文本 draft-js
+      </Menu.Item>
       <Menu.Item key="/flow" icon={<ApartmentOutlined />}>
         流程图
       </Menu.Item>
