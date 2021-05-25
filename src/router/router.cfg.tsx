@@ -14,6 +14,10 @@ export const routes = [
     component: lazy(() => import("../pages/Home/Home")),
     routes: [
       {
+        path: "/nestform",
+        component: lazy(() => import("../modules/NestForm/NestForm")),
+      },
+      {
         path: "/braft",
         component: lazy(() => import("../modules/BraftEditor/BraftEditor")),
       },

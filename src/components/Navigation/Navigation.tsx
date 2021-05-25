@@ -13,6 +13,9 @@ const Navigation: React.FC = () => {
 
   return (
     <Menu className="nav" mode="horizontal" onSelect={handleMenuSelect}>
+      <Menu.Item key="/nestform" icon={<ApartmentOutlined />}>
+        自定义嵌套表单
+      </Menu.Item>
       <Menu.Item key="/braft" icon={<ApartmentOutlined />}>
         富文本 braft
       </Menu.Item>
