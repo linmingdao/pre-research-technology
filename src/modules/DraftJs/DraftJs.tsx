@@ -1,8 +1,8 @@
 import React from "react";
 import "draft-js/dist/Draft.css";
-import "@pupu/opm-bricks/dist/index.css";
+import "tetris-ui/dist/index.css";
 import { Editor, EditorState } from "draft-js";
-import { TitleLayout } from "@pupu/opm-bricks";
+import { TitleLayout } from "tetris-ui";
 
 const DraftJs: React.FC = () => {
   const [editorState, setEditorState] = React.useState(() =>

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "@pupu/opm-bricks/dist/index.css";
+import "tetris-ui/dist/index.css";
 import "react-quill/dist/quill.snow.css";
-import { TitleLayout } from "@pupu/opm-bricks";
+import { TitleLayout } from "tetris-ui";
 
 const Quill: React.FC = () => {
   const [value, setValue] = useState("");

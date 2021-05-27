@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import data from "./data";
 import { message } from "antd";
-import FlowChart, {
-  ElementType,
-  AvailableBuiltInType,
-} from "../../components/FlowChart";
-import "../../components/FlowChart/_style.scss";
+import "tetris-ui/dist/index.css";
+import { FlowChart } from "tetris-ui";
+import { ElementType } from "tetris-ui/dist/components/Functional/FlowChart";
 
 const FlowChartDemo: React.FC = () => {
   const flowRef = useRef<any>(null);
@@ -38,12 +36,6 @@ const FlowChartDemo: React.FC = () => {
       onSave={onSave}
       onElementDrop={onElementDrop}
       onElementClick={onElementClick}
-      defaultNodes={[
-        AvailableBuiltInType.END,
-        AvailableBuiltInType.JUDGMENT,
-        AvailableBuiltInType.PROCESS,
-        AvailableBuiltInType.START,
-      ]}
     />
   );
 };

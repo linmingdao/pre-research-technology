@@ -1,7 +1,7 @@
-import "@pupu/opm-bricks/dist/index.css";
+import "tetris-ui/dist/index.css";
 import { Button, Form, Input } from "antd";
 import React from "react";
-import { TitleLayout } from "@pupu/opm-bricks";
+import { TitleLayout } from "tetris-ui";
 
 const tmp = [
   {

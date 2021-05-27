@@ -1,10 +1,10 @@
 import "braft-editor/dist/index.css";
 import "./BraftEditor.scss";
-import "@pupu/opm-bricks/dist/index.css";
+import "tetris-ui/dist/index.css";
 import { Button } from "antd";
 import BraftEditor from "braft-editor";
 import React, { useState } from "react";
-import { TitleLayout, FilterBox } from "@pupu/opm-bricks";
+import { TitleLayout, FilterBox } from "tetris-ui";
 import "./braftEditorExtension.js";
 import "react-area-linkage/dist/index.css";
 import { pcaa } from "area-data"; // v3 or higher
