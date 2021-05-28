@@ -1,7 +1,11 @@
 import React from "react";
 import { Menu } from "antd";
 import { useHistory } from "react-router-dom";
-import { ApartmentOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+  ApartmentOutlined,
+  BarChartOutlined,
+  SmileOutlined,
+} from "@ant-design/icons";
 
 const Navigation: React.FC = () => {
   const history = useHistory();
@@ -16,15 +20,17 @@ const Navigation: React.FC = () => {
       <Menu.Item key="/nestform" icon={<ApartmentOutlined />}>
         自定义嵌套表单
       </Menu.Item>
-      <Menu.Item key="/braft" icon={<ApartmentOutlined />}>
-        富文本 braft
-      </Menu.Item>
-      <Menu.Item key="/quill" icon={<ApartmentOutlined />}>
-        富文本 react-quill
-      </Menu.Item>
-      <Menu.Item key="/draft" icon={<ApartmentOutlined />}>
-        富文本 draft-js
-      </Menu.Item>
+      <Menu.SubMenu key="rich" icon={<BarChartOutlined />} title="富文本编辑器">
+        <Menu.Item key="/braft" icon={<ApartmentOutlined />}>
+          braft
+        </Menu.Item>
+        <Menu.Item key="/quill" icon={<ApartmentOutlined />}>
+          react-quill
+        </Menu.Item>
+        <Menu.Item key="/draft" icon={<ApartmentOutlined />}>
+          draft-js
+        </Menu.Item>
+      </Menu.SubMenu>
       <Menu.Item key="/flow" icon={<ApartmentOutlined />}>
         流程图
       </Menu.Item>
