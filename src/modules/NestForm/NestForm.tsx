@@ -1,123 +1,74 @@
 import "tetris-ui/dist/index.css";
-import { Button, Form, Input } from "antd";
-import React from "react";
-import { TitleLayout } from "tetris-ui";
+import { Button } from "antd";
+import React, { useEffect, useState } from "react";
+import { TitleLayout, SimpleListTable, FilterBox } from "tetris-ui";
 
-const tmp = [
-  {
-    label: "读取的数据库",
-    name: "ReaderDB",
-    instance: {
-      compare: null,
-    },
-    id: "GmR5KFDt6LghH3nuIIke1",
-    type: "bricks",
-    props: {
-      name: "reader",
-      value: "",
-      label: "Reader数据库配置",
-      rules: ["Required"],
-      placeholder: "请配置",
-    },
-  },
-  {
-    label: "写入的数据库",
-    name: "WriterDB",
-    instance: {
-      compare: null,
-    },
-    id: "TRXQvDB_ra5stTJYOBIF-",
-    type: "bricks",
-    props: {
-      name: "writer",
-      label: "Writer数据库配置",
-      rules: ["Required"],
-      placeholder: "请配置",
-    },
-  },
-  {
-    label: "内嵌的组件",
-    name: "WriterDB",
-    id: "TRXQvDB_ra5stTJYOBIF-",
-    children: [
-      {
-        label: "写入的数据库",
-        name: "WriterDB",
-        instance: {
-          compare: null,
-        },
-        id: "TRXQvDB_ra5stTJYOBIF-",
-        type: "bricks",
-        props: {
-          name: "writer",
-          label: "Writer数据库配置",
-          rules: ["Required"],
-          placeholder: "请配置",
-        },
-      },
-      {
-        label: "写入的数据库",
-        name: "WriterDB",
-        instance: {
-          compare: null,
-        },
-        id: "TRXQvDB_ra5stTJYOBIF-",
-        type: "bricks",
-        props: {
-          name: "writer",
-          label: "Writer数据库配置",
-          rules: ["Required"],
-          placeholder: "请配置",
-        },
-      },
-    ],
-    props: {
-      name: "writer",
-      label: "Writer数据库配置",
-      rules: ["Required"],
-      placeholder: "请配置",
-    },
-  },
-];
-
-console.log(tmp);
+function mockRequest(page = 1, size = 10) {
+  const data = [];
+  for (let i = 0; i < size; i++) {
+    data.push({
+      id: `${page}_${i}`,
+      name: `胡彦斌_${page}_${i}`,
+      age: 60,
+      address: "西湖区湖底公园1号",
+    });
+  }
+  return { total: 1000, data };
+}
 
 const BraftEditorDemo: React.FC = () => {
-  const handleOnFinish = (values: any) => {
-    console.log(values);
-  };
+  const [total, setTotal] = useState<number>(10);
+  const [pageSize, setPageSize] = useState<number>(10);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [dataSource, setDataSource] = useState<any[]>([]);
+
+  useEffect(() => {
+    const { total, data } = mockRequest(currentPage, pageSize);
+    setTotal(total);
+    setDataSource(data);
+  }, [pageSize, currentPage]);
+
+  function search() {
+    setCurrentPage(1);
+  }
+
+  function onPageChange(page: number) {
+    setCurrentPage(page);
+  }
+
+  function onPageSizeChange(size: number) {
+    setPageSize(size);
+  }
 
   return (
-    <TitleLayout hasBack title="自定义嵌套表单">
-      <Form onFinish={handleOnFinish}>
-        <Form.Item label="test" name="test">
-          <Input />
-        </Form.Item>
-        <Form.Item label="test1">
-          <Form.Item label="test2" name="test2">
-            <Input />
-          </Form.Item>
-          <Form.Item label="test2" name="test3">
-            <Input />
-          </Form.Item>
-          <Form.Item label="test2" name="test4">
-            <Input />
-          </Form.Item>
-          <Form.Item label="test2">
-            <Form.Item label="test2" name="test6" rules={[{ required: true }]}>
-              <Input />
-            </Form.Item>
-            <Form.Item label="test2" name="test7">
-              <Input />
-            </Form.Item>
-          </Form.Item>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            提交
+    <TitleLayout
+      title="自定义嵌套表单"
+      renderTool={() => (
+        <FilterBox>
+          <Button type="primary" onClick={() => search()}>
+            查 询
           </Button>
-        </Form.Item>
-      </Form>
+        </FilterBox>
+      )}
+    >
+      <SimpleListTable
+        rowkey="id"
+        total={total}
+        dataSource={dataSource}
+        pageSize={pageSize}
+        currentPage={currentPage}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+        columns={[
+          { title: "姓名", dataIndex: "name", key: "name" },
+          { title: "年龄", dataIndex: "age", key: "age" },
+          { title: "住址", dataIndex: "address", key: "address" },
+        ]}
+        expandable={{
+          rowExpandable: (record: any) => record.age > 40,
+          expandedRowRender: (record: any) => <p>{JSON.stringify(record)}</p>,
+        }}
+      ></SimpleListTable>
     </TitleLayout>
   );
 };
