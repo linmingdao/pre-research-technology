@@ -3,19 +3,25 @@ import React from "react";
 import { FormEditor, SeriesFormItems } from "@pupu/opm-bricks";
 
 const BraftEditorDemo: React.FC = () => {
-  const { templates, rules } = SeriesFormItems;
+  const { templates, rules, groupIcons } = SeriesFormItems;
 
   return (
     <>
       <p style={{ marginTop: 10 }}>表单编辑器：</p>
       <div style={{ padding: "20px" }}>
-        <FormEditor templates={templates} />
+        <FormEditor
+          style={{ height: 800 }}
+          templates={templates}
+          groupIcons={groupIcons}
+          // defaultToolbar={['undo']}
+          onExport={(stageItemList) => console.log(stageItemList)}
+        />
       </div>
       <p>反序列化：</p>
       <div style={{ padding: "20px 200px", border: "1px solid #eee" }}>
         <FormEditor.Deserialization
           rules={rules}
-          mode="stage"
+          mode="preview"
           templates={templates}
           stageItems={[
             {
